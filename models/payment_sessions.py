@@ -5,13 +5,21 @@ from helpers.utils import load_json
 BASE_PAYLOAD = Path(__file__).resolve().parents[1] / "payloads" / "payment_session.json"
 
 class PaymentSessionPayload:
-    """Class to build payment session payloads"""
+    """Class to construct payment session payload"""
 
     def __init__(self):
         self.payment_session_json = load_json(BASE_PAYLOAD)
 
-    def construct_payment_session_json(self, logger, values: dict= None) :
-        """ Construct payment session json payload """
+    def construct_payment_session_json(self, logger, values=None) :
+        """ Construct payment session json payload 
+        
+        Args:
+            logger: Logger object
+            values (dict, optional): Dictionary of values to override default payload values. Default is None.
+
+        Returns:
+            self.payment_session_json (dict): Constructed payment session JSON payload
+        """
 
         if values is None:
             values = {}

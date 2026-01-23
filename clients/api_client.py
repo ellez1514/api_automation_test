@@ -30,7 +30,9 @@ class APIClient:
     
 
     def post(self, url, **kwargs):
+        """ Perform a POST request """
         return self._request("POST", url, **kwargs)
 
     def get(self, url, **kwargs):
+        """ Perform a GET request """
         return self._request("GET", url, **kwargs)

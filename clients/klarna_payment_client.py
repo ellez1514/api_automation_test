@@ -3,13 +3,14 @@ from clients import APIClient
 ENDPOINT_PAYMENT_SESSION = "payments/v1/sessions"
 
 class KlarnaPaymentClient():
-    def __init__(self, logger, payment_config):
-        """Init for payment client
+    """A client for interacting with Klarna Payment API
 
-        Args:
+    Args:+
             logger: Logger object
             payment_config: Config object which contains config data for payment client
-        """
+    """
+
+    def __init__(self, logger, payment_config):
         self.requests = APIClient(logger)
         self.logger = logger
         self.base_url = payment_config.base_url
@@ -20,7 +21,9 @@ class KlarnaPaymentClient():
         """ Create or update payment session
 
         Args:
-            json_body (dict): The JSON body to send in the request.
+            json_body (dict): The JSON body to send in the request
+            headers (dict, optional): Headers to include in the request. Default is None
+            timeout (int, optional): Timeout for the request in seconds. Default is 10
 
         Returns:
             requests.Response: The API response.

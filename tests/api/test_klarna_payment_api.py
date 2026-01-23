@@ -15,7 +15,7 @@ unauthorized_response_fields = ["error_code", "error_message"]
 # NOTE: If values_dict is {}, default valid payload values will be used
 # NOTE: If expected_error_code is None, no error code validation will be performed
 test_data = [
-    ("success_payment_session", None, {}, 200, success_response_fields, []),
+    ("success_payment_session", None, {}, 200, success_response_fields, None),
     ("invalid_payment_session", None, {"order_amount": -1000}, 400, error_response_fields, "BAD_VALUE"),
     ("empty_amount_value", None, {"order_amount": ""}, 400, error_response_fields, "BAD_VALUE"),
     ("unauthorized_access", invalid_token_header, {}, 401, unauthorized_response_fields, "PERMISSION_DENIED"),
@@ -24,8 +24,7 @@ test_data = [
 
 @pytest.mark.api
 class TestKlarnaPaymentAPI:
-    """@brief Test suite for Klarna Payment API tests
-    """
+    """Test suite for Klarna Payment API tests"""
 
     @pytest.mark.parametrize(
         "scenario, headers, values_dict, expected_status_code, expected_resp_fields, expected_error_code", test_data
@@ -41,12 +40,11 @@ class TestKlarnaPaymentAPI:
         expected_resp_fields,
         expected_error_code
     ):
-        """
-        Test the creation of a payment session
-        """
+        """Test the creation of a payment session"""
+
         logger.info(f"Executing test scenario: {scenario}")
 
-        # Get payment session payload with default values and create session
+        # Get payment session payload and create payment session
         payload = PaymentSessionPayload().construct_payment_session_json(logger, values=values_dict)
         result = klarna_payment_client.payment_session(json_body=payload, headers=headers)
         assert result.status_code == expected_status_code, (
