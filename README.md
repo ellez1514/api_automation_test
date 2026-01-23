@@ -4,8 +4,6 @@ This repo contains automated tests for klarna payment session api
 
 #### TEST CASES
 
-### Test Cases
-
 | Test Case                 | Scenario                         | Expected Outcome                      |
 |---------------------------|----------------------------------|---------------------------------------|
 | `success_payment_session` | Happy Path                       | 200 status code – Payment succeeds    |
