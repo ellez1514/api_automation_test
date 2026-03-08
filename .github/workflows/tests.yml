@@ -3,8 +3,6 @@ name: API Automation Tests
 on:
   push:
     branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main", "master" ]
 
 jobs:
   test:
@@ -25,5 +23,9 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Run tests with pytest
+      env:
+        PAYMENT_API_HOST: ${{ secrets.PAYMENT_API_HOST }}
+        KLARNA_USERNAME: ${{ secrets.KLARNA_USERNAME }}
+        KLARNA_PASSWORD: ${{ secrets.KLARNA_PASSWORD }}
       run: |
         pytest
